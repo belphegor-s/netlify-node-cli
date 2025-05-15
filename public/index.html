@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Test</title>
+        <meta charset="UTF-8" />
+        <title>Test Node API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            body {
+                background: linear-gradient(to right, #1f2937, #4b5563);
+            }
+        </style>
     </head>
-    <body>
-        <h1>Testing Node API</h1>
-        <button onclick="callAPI()">Call Function</button>
-        <pre id="output"></pre>
+    <body class="flex items-center justify-center min-h-screen text-white font-sans">
+        <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl max-w-md w-full text-center border border-white/20">
+            <h1 class="text-3xl font-bold mb-4">🚀 Node API Test</h1>
+            <button onclick="callAPI()" class="bg-blue-600 hover:bg-blue-700 transition-colors duration-200 px-6 py-2 rounded-lg font-semibold text-white shadow-md">Call Function</button>
+            <pre id="output" class="mt-6 text-sm text-left whitespace-pre-wrap bg-black/40 p-4 rounded-md overflow-x-auto"></pre>
+        </div>
+
         <script>
             async function callAPI() {
-                const res = await fetch("/.netlify/functions/hello");
-                const data = await res.json();
-                document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+                try {
+                    const res = await fetch("/.netlify/functions/hello");
+                    const data = await res.json();
+                    document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+                } catch (err) {
+                    document.getElementById("output").textContent = "Error: " + err.message;
+                }
             }
         </script>
     </body>
